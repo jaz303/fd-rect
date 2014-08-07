@@ -11,7 +11,7 @@ function smartConstructor(x, y, w, h) {
     }
 }
 
-x.Rect = require('./Rect');
+var Rect = x.Rect = require('./Rect');
 
 x.clone = clone;
 function clone(rect) {
