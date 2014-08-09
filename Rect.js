@@ -140,9 +140,47 @@ Rect.prototype.union = function(otherRect) {
 
 }
 
-// Rect.prototype.intersect = function(rect) {
+Rect.prototype.intersect = function(rect) {
 
-// }
+    var left, right, top, bottom;
+
+    var l1  = this.origin.x,
+        l2  = rect.origin.x,
+        r1  = this.origin.x + this.size.width,
+        r2  = rect.origin.x + rect.size.width;
+
+    if (l2 >= r1) {
+        return null;
+    } else {
+        left = l2 > l1 ? l2 : l1;
+    }
+
+    if (r2 <= l1) {
+        return null;
+    } else {
+        right = r2 > r1 ? r1 : r2;
+    }
+
+    var t1  = this.origin.y,
+        t2  = rect.origin.y,
+        b1  = this.origin.y + this.size.height,
+        b2  = rect.origin.y + rect.size.height;
+
+    if (t2 >= b1) {
+        return null;
+    } else {
+        top = t2 > t1 ? t2 : t1;
+    }
+
+    if (b2 <= t1) {
+        return null;
+    } else {
+        bottom = b2 > b1 ? b1 : b2;
+    }
+
+    return new Rect(new Vec2(left,top), new Size(right-left, bottom-top));
+
+}
 
 Rect.prototype.flip_ = function() {
     var tmp = this.size.width;
@@ -183,9 +221,52 @@ Rect.prototype.union_ = function(otherRect) {
 
 }
 
-// Rect.prototype.intersect_ = function(rect) {
+Rect.prototype.intersect_ = function(rect) {
 
-// }
+    var left, right, top, bottom;
+
+    var l1  = this.origin.x,
+        l2  = rect.origin.x,
+        r1  = this.origin.x + this.size.width,
+        r2  = rect.origin.x + rect.size.width;
+
+    if (l2 >= r1) {
+        return false;
+    } else {
+        left = l2 > l1 ? l2 : l1;
+    }
+
+    if (r2 <= l1) {
+        return false;
+    } else {
+        right = r2 > r1 ? r1 : r2;
+    }
+
+    var t1  = this.origin.y,
+        t2  = rect.origin.y,
+        b1  = this.origin.y + this.size.height,
+        b2  = rect.origin.y + rect.size.height;
+
+    if (t2 >= b1) {
+        return false;
+    } else {
+        top = t2 > t1 ? t2 : t1;
+    }
+
+    if (b2 <= t1) {
+        return false;
+    } else {
+        bottom = b2 > b1 ? b1 : b2;
+    }
+
+    this.origin.x = left;
+    this.origin.y = top;
+    this.size.width = right - left;
+    this.size.height = bottom - top;
+
+    return true;
+
+}
 
 Rect.prototype.containsVec2 = function(vec) {
     return this.containsPoint(vec.x, vec.y);

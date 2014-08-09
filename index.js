@@ -1,6 +1,9 @@
 var Vec2 = require('fd-vec2').Vec2;
 var Size = require('fd-size').Size;
 
+var min = Math.min,
+    max = Math.max;
+
 //
 // Smart constructor
 
@@ -159,4 +162,49 @@ exports.intersects = function(rect1, rect2) {
     );
 }
 
-// TODO: intersect
+exports.intersect = function(rect1, rect2, out) {
+
+    var left, right, top, bottom;
+
+    var l1  = rect1.origin.x,
+        l2  = rect2.origin.x,
+        r1  = rect1.origin.x + rect1.size.width,
+        r2  = rect2.origin.x + rect2.size.width;
+
+    if (l2 >= r1) {
+        return false;
+    } else {
+        left = l2 > l1 ? l2 : l1;
+    }
+
+    if (r2 <= l1) {
+        return false;
+    } else {
+        right = r2 > r1 ? r1 : r2;
+    }
+
+    var t1  = rect1.origin.y,
+        t2  = rect2.origin.y,
+        b1  = rect1.origin.y + rect1.size.height,
+        b2  = rect2.origin.y + rect2.size.height;
+
+    if (t2 >= b1) {
+        return false;
+    } else {
+        top = t2 > t1 ? t2 : t1;
+    }
+
+    if (b2 <= t1) {
+        return false;
+    } else {
+        bottom = b2 > b1 ? b1 : b2;
+    }
+
+    out.origin.x    = left;
+    out.origin.y    = top;
+    out.size.width  = right - left;
+    out.size.height = bottom - top;
+
+    return true;
+
+}
