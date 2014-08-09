@@ -108,35 +108,25 @@ exports.translate = function(rect, dx, dy, out) {
     out.size.height = rect.size.height;
 }
 
-// TODO: contains point
-// TODO: contains rect
+exports.containsVec2 = function(rect, vec) {
+    return containsPoint(rect, vec.x, vec.y);
+}
+
+exports.containsPoint = containsPoint;
+function containsPoint(rect, x, y) {
+    return x >= rect.origin.x
+        && x <= (rect.origin.x + rect.size.width)
+        && y >= rect.origin.y
+        && y <= (rect.origin.y + rect.size.height);
+}
+
+exports.containsRect = function(rect, otherRect) {
+    return otherRect.origin.x >= rect.origin.x
+        && (otherRect.origin.x + otherRect.size.width) <= (rect.origin.x + rect.size.width)
+        && otherRect.origin.y >= rect.origin.y
+        && (otherRect.origin.y + otherRect.size.height) <= (rect.origin.y + rect.size.height);
+}
+
 // TODO: intersects
 // TODO: intersect
 // TODO: union
-
-
-// x.containsPoint = function(rect, point) {
-//     return point.x >= rect.origin.x
-//         && point.x <= (rect.origin.x + rect.size.width)
-//         && point.y >= rect.origin.y
-//         && point.y <= (rect.origin.y + rect.size.height);
-// }
-
-// x.containsRect = function(rect, otherRect) {
-//     return otherRect.origin.x >= rect.origin.x
-//         && (otherRect.origin.x + otherRect.size.width) <= (rect.origin.x + rect.size.width)
-//         && otherRect.origin.y >= rect.origin.y
-//         && (otherRect.origin.y + otherRect.size.height) <= (rect.origin.y + rect.size.height);
-// }
-
-// x.intersects = function(rect, otherRect) {
-
-// }
-
-// x.intersect = function(rect, otherRect, out) {
-
-// }
-
-// x.union = function(rect, otherRect, out) {
-
-// }
