@@ -12,6 +12,29 @@ function Rect(origin, size) {
 }
 
 //
+// Getters/setters
+
+Object.defineProperty(Rect.prototype, 'x', {
+    get: function() { return this.origin.x; },
+    set: function(x) { this.origin.x = x; },
+});
+
+Object.defineProperty(Rect.prototype, 'y', {
+    get: function() { return this.origin.y; },
+    set: function(y) { this.origin.y = y; },
+});
+
+Object.defineProperty(Rect.prototype, 'width', {
+    get: function() { return this.size.width; },
+    set: function(width) { this.size.width = width; },
+});
+
+Object.defineProperty(Rect.prototype, 'height', {
+    get: function() { return this.size.height; },
+    set: function(height) { this.size.height = height; },
+});
+
+//
 // Clone
 
 Rect.prototype.clone = function() {
