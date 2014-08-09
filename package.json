@@ -1,0 +1,33 @@
+{
+  "name": "fd-rect",
+  "version": "0.0.0",
+  "description": "2D rectangle",
+  "main": "index.js",
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do echo $t; node $t; done"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaz303/fd-rect.git"
+  },
+  "keywords": [
+    "math",
+    "2d",
+    "geometry",
+    "rectangle",
+    "rect"
+  ],
+  "author": "Jason Frame <jason@onehackoranother.com> (http://jasonframe.co.uk)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaz303/fd-rect/issues"
+  },
+  "homepage": "https://github.com/jaz303/fd-rect",
+  "devDependencies": {
+    "fd-geom-test": "^0.1.0"
+  },
+  "dependencies": {
+    "fd-size": "^0.1.0",
+    "fd-vec2": "^0.2.0"
+  }
+}
