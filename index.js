@@ -73,6 +73,12 @@ exports.isEmpty = function(rect) {
         && rect.size.height === 0;
 }
 
+
+exports.makeEmpty = makeEmpty;
+function makeEmpty(out) {
+    out.origin.x = out.origin.y = out.size.width = out.size.height = 0;
+}
+
 exports.isSquare = function(rect) {
     return rect.size.width === rect.size.height;
 }
@@ -172,13 +178,13 @@ exports.intersect = function(rect1, rect2, out) {
         r2  = rect2.origin.x + rect2.size.width;
 
     if (l2 >= r1) {
-        return false;
+        return makeEmpty(out);
     } else {
         left = l2 > l1 ? l2 : l1;
     }
 
     if (r2 <= l1) {
-        return false;
+        return makeEmpty(out);
     } else {
         right = r2 > r1 ? r1 : r2;
     }
@@ -189,13 +195,13 @@ exports.intersect = function(rect1, rect2, out) {
         b2  = rect2.origin.y + rect2.size.height;
 
     if (t2 >= b1) {
-        return false;
+        return makeEmpty(out);
     } else {
         top = t2 > t1 ? t2 : t1;
     }
 
     if (b2 <= t1) {
-        return false;
+        return makeEmpty(out);
     } else {
         bottom = b2 > b1 ? b1 : b2;
     }
@@ -204,7 +210,5 @@ exports.intersect = function(rect1, rect2, out) {
     out.origin.y    = top;
     out.size.width  = right - left;
     out.size.height = bottom - top;
-
-    return true;
 
 }

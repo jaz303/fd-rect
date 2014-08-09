@@ -247,9 +247,8 @@ test("intersect (imperative)", function(assert) {
             var res = rect.intersect(r1, r2, out);
 
             if (ic.expect === null) {
-                assert.equal(res, false, ic.name + ", " + append);
+                assert.ok(out.isEmpty(), ic.name + ", " + append);
             } else {
-                assert.equal(res, true, ic.name + ", " + append);
                 assert.ok(out.eq(ic.expect), ic.name + ", " + append);
             }
         }
@@ -270,7 +269,7 @@ test("intersect (object)", function(assert) {
         function check(r1, r2, append) {
             var res = r1.clone().intersect(r2.clone());
             if (ic.expect === null) {
-                assert.equal(res, null, ic.name + ", " + append);
+                assert.ok(res.isEmpty(), ic.name + ", " + append);
             } else {
                 assert.ok(res.eq(ic.expect), ic.name + ", " + append);
             }
@@ -293,9 +292,8 @@ test("intersect (object, self-mutating)", function(assert) {
             var receiver = r1.clone();
             var res = receiver.intersect_(r2.clone());
             if (ic.expect === null) {
-                assert.equal(res, false, ic.name + ", " + append);
+                assert.ok(receiver.isEmpty(), ic.name + ", " + append);
             } else {
-                assert.equal(res, true, ic.name + ", " + append);
                 assert.ok(receiver.eq(ic.expect), ic.name + ", " + append);
             }
         }

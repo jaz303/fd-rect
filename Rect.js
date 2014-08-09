@@ -150,13 +150,13 @@ Rect.prototype.intersect = function(rect) {
         r2  = rect.origin.x + rect.size.width;
 
     if (l2 >= r1) {
-        return null;
+        return _empty();
     } else {
         left = l2 > l1 ? l2 : l1;
     }
 
     if (r2 <= l1) {
-        return null;
+        return _empty();
     } else {
         right = r2 > r1 ? r1 : r2;
     }
@@ -167,18 +167,25 @@ Rect.prototype.intersect = function(rect) {
         b2  = rect.origin.y + rect.size.height;
 
     if (t2 >= b1) {
-        return null;
+        return _empty();
     } else {
         top = t2 > t1 ? t2 : t1;
     }
 
     if (b2 <= t1) {
-        return null;
+        return _empty();
     } else {
         bottom = b2 > b1 ? b1 : b2;
     }
 
-    return new Rect(new Vec2(left,top), new Size(right-left, bottom-top));
+    return new Rect(
+        new Vec2(left, top),
+        new Size(right - left, bottom - top)
+    );
+
+    function _empty() {
+        return new Rect(new Vec2(0,0), new Size(0,0));
+    }
 
 }
 
@@ -231,13 +238,13 @@ Rect.prototype.intersect_ = function(rect) {
         r2  = rect.origin.x + rect.size.width;
 
     if (l2 >= r1) {
-        return false;
+        return this._makeZero();
     } else {
         left = l2 > l1 ? l2 : l1;
     }
 
     if (r2 <= l1) {
-        return false;
+        return this._makeZero();
     } else {
         right = r2 > r1 ? r1 : r2;
     }
@@ -248,13 +255,13 @@ Rect.prototype.intersect_ = function(rect) {
         b2  = rect.origin.y + rect.size.height;
 
     if (t2 >= b1) {
-        return false;
+        return this._makeZero();
     } else {
         top = t2 > t1 ? t2 : t1;
     }
 
     if (b2 <= t1) {
-        return false;
+        return this._makeZero();
     } else {
         bottom = b2 > b1 ? b1 : b2;
     }
@@ -284,4 +291,11 @@ Rect.prototype.containsRect = function(otherRect) {
         && (otherRect.origin.x + otherRect.size.width) <= (this.origin.x + this.size.width)
         && otherRect.origin.y >= this.origin.y
         && (otherRect.origin.y + otherRect.size.height) <= (this.origin.y + this.size.height);
+}
+
+//
+// Private
+
+Rect.prototype._makeZero = function() {
+    this.origin.x = this.origin.y = this.size.width = this.size.height = 0;
 }
