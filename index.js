@@ -94,11 +94,22 @@ exports.flip = function(rect, out) {
     out.size.height = tmp;
 }
 
+exports.scale = function(rect, scale, out) {
+    out.origin.x = rect.origin.x;
+    out.origin.y = rect.origin.y;
+    out.size.width = rect.size.width * scale;
+    out.size.height = rect.size.height * scale;
+}
+
+exports.translate = function(rect, dx, dy, out) {
+    out.origin.x = rect.origin.x + dx;
+    out.origin.y = rect.origin.y + dy;
+    out.size.width = rect.size.width;
+    out.size.height = rect.size.height;
+}
+
 // TODO: contains point
 // TODO: contains rect
-// TODO: scale
-// TODO: translate
-// TODO: flip
 // TODO: intersects
 // TODO: intersect
 // TODO: union

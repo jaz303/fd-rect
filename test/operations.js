@@ -48,3 +48,17 @@ gt.unaryOperator(
     rect(10, 10, 50, 20),
     rect(10, 10, 20, 50)
 );
+
+gt.test(
+    'scale',
+    rect(20, 30, 100, 200),
+    [0.5],
+    rect(20, 30, 50, 100)
+);
+
+gt.test(
+    'translate',
+    rect(15, 23, 500, 600),
+    [20, 30],
+    rect(35, 53, 500, 600)
+);

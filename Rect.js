@@ -1,6 +1,7 @@
 module.exports = Rect;
 
 var Size = require('fd-size').Size;
+var Vec2 = require('fd-vec2').Vec2;
 
 //
 // Ctor
@@ -57,10 +58,34 @@ Rect.prototype.flip = function() {
     );
 }
 
+Rect.prototype.scale = function(scale) {
+    return new Rect(
+        this.origin.clone(),
+        new Size(this.size.width * scale, this.size.height * scale)
+    );
+}
+
+Rect.prototype.translate = function(dx, dy) {
+    return new Rect(
+        new Vec2(this.origin.x + dx, this.origin.y + dy),
+        this.size.clone()
+    );
+}
+
 Rect.prototype.flip_ = function() {
     var tmp = this.size.width;
     this.size.width = this.size.height;
     this.size.height = tmp;
+}
+
+Rect.prototype.scale_ = function(scale) {
+    this.size.width *= scale;
+    this.size.height *= scale;
+}
+
+Rect.prototype.translate_ = function(dx, dy) {
+    this.origin.x += dx;
+    this.origin.y += dy;
 }
 
 // Rect.prototype.containsPoint = function(point) {
