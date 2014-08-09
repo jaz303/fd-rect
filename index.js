@@ -127,6 +127,36 @@ exports.containsRect = function(rect, otherRect) {
         && (otherRect.origin.y + otherRect.size.height) <= (rect.origin.y + rect.size.height);
 }
 
-// TODO: intersects
+exports.union = function(rect1, rect2, out) {
+
+    var l1 = rect1.origin.x,
+        l2 = rect2.origin.x,
+        r1 = l1 + rect1.size.width,
+        r2 = l2 + rect2.size.width,
+        t1 = rect1.origin.y,
+        t2 = rect2.origin.y,
+        b1 = t1 + rect1.size.height,
+        b2 = t2 + rect2.size.height;
+
+    var l = l1 < l2 ? l1 : l2;
+    var t = t1 < t2 ? t1 : t2;
+    var r = r1 > r2 ? r1 : r2;
+    var b = b1 > b2 ? b1 : b2;
+
+    out.origin.x = l;
+    out.origin.y = t;
+    out.size.width = r-l;
+    out.size.height = b-t;
+
+}
+
+exports.intersects = function(rect1, rect2) {
+    return !(
+        rect1.origin.x + rect1.size.width <= rect2.origin.x
+        || rect1.origin.y + rect1.size.height <= rect2.origin.y
+        || rect1.origin.x >= rect2.origin.x + rect2.size.width
+        || rect1.origin.y >= rect2.origin.y + rect2.size.height
+    );
+}
+
 // TODO: intersect
-// TODO: union

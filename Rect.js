@@ -74,6 +74,15 @@ Rect.prototype.perimeter = function() {
     return (this.size.width * 2) + (this.size.height * 2);
 }
 
+Rect.prototype.intersects = function(rect) {
+    return !(
+        this.origin.x + this.size.width <= rect.origin.x
+        || this.origin.y + this.size.height <= rect.origin.y
+        || this.origin.x >= rect.origin.x + rect.size.width
+        || this.origin.y >= rect.origin.y + rect.size.height
+    );
+}
+
 Rect.prototype.flip = function() {
     return new Rect(
         this.origin.clone(),
@@ -95,6 +104,30 @@ Rect.prototype.translate = function(dx, dy) {
     );
 }
 
+Rect.prototype.union = function(otherRect) {
+    
+    var l1 = this.origin.x,
+        l2 = otherRect.origin.x,
+        r1 = l1 + this.size.width,
+        r2 = l2 + otherRect.size.width,
+        t1 = this.origin.y,
+        t2 = otherRect.origin.y,
+        b1 = t1 + this.size.height,
+        b2 = t2 + otherRect.size.height;
+
+    var l = l1 < l2 ? l1 : l2;
+    var t = t1 < t2 ? t1 : t2;
+    var r = r1 > r2 ? r1 : r2;
+    var b = b1 > b2 ? b1 : b2;
+
+    return new Rect(new Vec2(l,t), new Size(r-l, b-t));
+
+}
+
+// Rect.prototype.intersect = function(rect) {
+
+// }
+
 Rect.prototype.flip_ = function() {
     var tmp = this.size.width;
     this.size.width = this.size.height;
@@ -110,6 +143,33 @@ Rect.prototype.translate_ = function(dx, dy) {
     this.origin.x += dx;
     this.origin.y += dy;
 }
+
+Rect.prototype.union_ = function(otherRect) {
+    
+    var l1 = this.origin.x,
+        l2 = otherRect.origin.x,
+        r1 = l1 + this.size.width,
+        r2 = l2 + otherRect.size.width,
+        t1 = this.origin.y,
+        t2 = otherRect.origin.y,
+        b1 = t1 + this.size.height,
+        b2 = t2 + otherRect.size.height;
+
+    var l = l1 < l2 ? l1 : l2;
+    var t = t1 < t2 ? t1 : t2;
+    var r = r1 > r2 ? r1 : r2;
+    var b = b1 > b2 ? b1 : b2;
+
+    this.origin.x = l;
+    this.origin.y = t;
+    this.size.width = r - l;
+    this.size.height = b - t;
+
+}
+
+// Rect.prototype.intersect_ = function(rect) {
+
+// }
 
 Rect.prototype.containsVec2 = function(vec) {
     return this.containsPoint(vec.x, vec.y);
@@ -128,23 +188,3 @@ Rect.prototype.containsRect = function(otherRect) {
         && otherRect.origin.y >= this.origin.y
         && (otherRect.origin.y + otherRect.size.height) <= (this.origin.y + this.size.height);
 }
-
-// Rect.prototype.intersects = function(rect) {
-    
-// }
-
-// Rect.prototype.intersect = function(rect) {
-
-// }
-
-// Rect.prototype.union = function(rect) {
-
-// }
-
-// Rect.prototype.intersect_ = function(rect) {
-
-// }
-
-// Rect.prototype.union_ = function(rect) {
-
-// }

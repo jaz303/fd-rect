@@ -117,3 +117,36 @@ gt.test('containsRect',
     [ rect(-1,-1,3,3) ],
     false
 );
+
+gt.test('union',
+    rect(10,10,10,10),
+    [ rect(30,30,20,100) ],
+    rect(10,10,40,120)
+);
+
+// partial - left
+gt.test('intersects', rect(0,0,10,10), [ rect(-5,5,10,1) ], true);
+
+// partial - right
+gt.test('intersects', rect(0,0,10,10), [ rect(5,5,10,1) ], true);
+
+// partial - top
+gt.test('intersects', rect(0,0,10,10), [ rect(5,-5,1,10) ], true);
+
+// partial - bottom
+gt.test('intersects', rect(0,0,10,10), [ rect(5,5,1,10) ], true);
+
+// full
+gt.test('intersects', rect(0,0,10,10), [ rect(-5,-5,20,20) ], true);
+
+// touching
+gt.test('intersects', rect(0,0,10,10), [ rect(10,0,10,10) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(-10,0,10,10) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(0,-10,10,10) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(0,10,10,10) ], false);
+
+// no intersection
+gt.test('intersects', rect(0,0,10,10), [ rect(-10,0,5,5) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(15,0,5,5) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(0,-10,5,5) ], false);
+gt.test('intersects', rect(0,0,10,10), [ rect(0,15,5,5) ], false);
