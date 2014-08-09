@@ -38,3 +38,16 @@ test("getters", function(assert) {
     assert.end();
 
 });
+
+test("getters, calculated", function(assert) {
+
+    var r = rect(1,2,3,4);
+
+    assert.equal(r.left, 1);
+    assert.equal(r.right, 4);
+    assert.equal(r.top, 2);
+    assert.equal(r.bottom, 6);
+
+    assert.end();
+
+});

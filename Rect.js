@@ -34,6 +34,22 @@ Object.defineProperty(Rect.prototype, 'height', {
     set: function(height) { this.size.height = height; },
 });
 
+Object.defineProperty(Rect.prototype, 'left', {
+    get: function() { return this.origin.x; }
+});
+
+Object.defineProperty(Rect.prototype, 'right', {
+    get: function() { return this.origin.x + this.size.width; }
+});
+
+Object.defineProperty(Rect.prototype, 'top', {
+    get: function() { return this.origin.y; }
+});
+
+Object.defineProperty(Rect.prototype, 'bottom', {
+    get: function() { return this.origin.y + this.size.height; }
+});
+
 //
 // Clone
 
